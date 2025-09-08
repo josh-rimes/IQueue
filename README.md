@@ -32,3 +32,11 @@ IQueue/
 - LICENSE
 - README.md
 - .gitignore
+
+## Contributing
+
+Fork & clone the repo
+
+Use feature branches (feature/abc)
+
+Submit Pull Requests to Josh Rimes
