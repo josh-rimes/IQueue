@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import watchRoutes from "./routes/watchRoutes.js";
+import { runWorker } from "./worker.js";
 
 dotenv.config();
 
@@ -19,4 +20,5 @@ app.get("/", (req, res) => {
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`Server is listening on ${PORT}.`)
+    runWorker(); // Start worker
 });

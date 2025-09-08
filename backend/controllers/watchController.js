@@ -2,6 +2,9 @@
 // Placeholder watch data list
 let watches = [];
 
+// Utility: expose watches for worker.js
+export const getAllWatches = () => watches;
+
 // GET all watches
 export const getWatches = (req, res) => {
     res.json(watches);
@@ -9,15 +12,15 @@ export const getWatches = (req, res) => {
 
 // POST create a watch
 export const createWatch = (req, res) => {
-    const { eventURL, thresholdType, thresholdValue, userEmail } = req.body;
+    const { eventUrl, thresholdType, thresholdValue, userEmail } = req.body;
 
-    if (!eventURL || !userEmail) {
+    if (!eventUrl || !userEmail) {
         return res.status(400).json({ error: "eventUrl and userEmail are required" });
     }
 
     const newWatch = {
         id: Date.now().toString(),
-        eventURL,
+        eventUrl,
         thresholdType,
         thresholdValue,
         userEmail,
