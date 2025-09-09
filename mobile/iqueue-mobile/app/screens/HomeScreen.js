@@ -9,6 +9,10 @@ export default function HomeScreen({ navigation }) {
         title="Go to Add Watch"
         onPress={() => navigation.navigate("Add Watch")}
       />
+      <Button
+        title="Go to Watch List"
+        onPress={() => navigation.navigate("WatchList")}
+      />
     </View>
   );
 }
