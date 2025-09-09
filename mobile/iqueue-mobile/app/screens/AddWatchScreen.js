@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { View, TextInput, Button, Text, StyleSheet, Alert } from "react-native";
 import Constants from "expo-constants";
 
-export default function AddWatchScreen() {
+export default function AddWatchScreen({ navigation }) {
     const [eventUrl, setEventUrl] = useState("");
     const [thresholdType, setThresholdType] = useState("position");
     const [thresholdValue, setThresholdValue] = useState("");
@@ -35,6 +35,8 @@ export default function AddWatchScreen() {
                 setThresholdType("");
                 setThresholdValue("");
                 setUserEmail("");
+
+                navigation.navigate("WatchList");
             } else {
                 Alert.alert("Error", data.error || "Something went wrong");
             }

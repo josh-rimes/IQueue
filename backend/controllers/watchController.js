@@ -24,6 +24,8 @@ export const createWatch = (req, res) => {
         thresholdType,
         thresholdValue,
         userEmail,
+        expoPushToken: req.body.expoPushToken,
+        status: "pending...",
         createdAt: new Date(),
     };
 
@@ -34,6 +36,7 @@ export const createWatch = (req, res) => {
 // DELETE a watch
 export const deleteWatch = (req, res) => {
     const { id } = req.params;
-    watches = watches.filter((w) => w.id !== id);
+    const index = watches.findIndex((w) => w.id === id);
+    watches.splice(index, 1);
     res.json({ message: `Watch ${id} deleted` });
 };

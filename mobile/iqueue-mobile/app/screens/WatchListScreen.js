@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { View, Text, FlatList, ActivityIndicator, StyleSheet } from "react-native";
+import React, { useCallback, useEffect, useState } from "react";
+import { View, Text, FlatList, ActivityIndicator, StyleSheet, Button } from "react-native";
 import Constants from "expo-constants";
 
 const BACKEND_URL = Constants.expoConfig.extra.BACKEND_URL;
@@ -9,21 +9,24 @@ export default function WatchListScreen() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    useEffect(() => {
-        const fetchWatches = async () => {
-            try {
-                const response = await fetch(`${BACKEND_URL}/api/watches`);
-                const data = await response.json();
-                setWatches(data);
-            } catch (err) {
-                console.error("Error fetching watches:", err)
-                setError("Failed to load watches");
-            } finally {
-                setLoading(false);
-            }
-        };
+    
+    const fetchWatches = async () => {
+        try {
+            const response = await fetch(`${BACKEND_URL}/api/watches`);
+            const data = await response.json();
+            setWatches(data);
+        } catch (err) {
+            console.error("Error fetching watches:", err)
+            setError("Failed to load watches");
+        } finally {
+            setLoading(false);
+        }
+    };
 
+    useEffect(() => {
         fetchWatches();
+        const interval = setInterval(fetchWatches, 10000);
+        return () => clearInterval(interval);
     }, []);
 
     if (loading) {
@@ -64,6 +67,14 @@ export default function WatchListScreen() {
                         </Text>
                         <Text>User: {item.userEmail}</Text>
                         <Text>Status: {item.status}</Text>
+
+                        <Button 
+                            title="Delete"
+                            onPress={async () => {
+                                await fetch(`${BACKEND_URL}/api/watches/${item.id}`, { method: "DELETE"});
+                                fetchWatches();
+                            }}
+                        />
                     </View>    
                 )}
             />
