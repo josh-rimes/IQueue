@@ -25,13 +25,29 @@ Always follow the Terms of Service of ticket providers.
 
 ---
 
-## Project Structure
-IQueue/
-- backend/ # Node.js server (API + worker)
-- mobile/ # React Native (Expo app)
-- LICENSE
-- README.md
-- .gitignore
+## Setup
+
+### Backend Setup
+
+Run the following commands:
+
+``` bash
+cd /backend
+npm install
+npm run dev
+```
+
+### Mobile Setup
+
+Run the following commands:
+
+``` bash
+cd /mobile/iqueue-mobile
+npm install
+npx expo start
+```
+
+Open the app using Expo Go or an android emulator
 
 ---
 
