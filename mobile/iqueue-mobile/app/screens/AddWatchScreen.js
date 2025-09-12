@@ -31,6 +31,7 @@ export default function AddWatchScreen({ navigation }) {
             const data = await response.json();
             if (response.ok) {
                 Alert.alert("Success", `Watch created with ID: ${data.id}`);
+
                 setEventUrl("");
                 setThresholdType("");
                 setThresholdValue("");
@@ -90,12 +91,12 @@ const styles = StyleSheet.create({
     label: {
         marginTop: 10, 
         fontWeight: "bold",
-        color: "#fff" 
+        color: "#000000ff" 
     },
     input: {
         borderWidth: 1,
         borderColor: "#ccc",
-        color: "#fff",
+        color: "#000000ff",
         padding: 10,
         borderRadius: 5,
         marginTop: 5,
