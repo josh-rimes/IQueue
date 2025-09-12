@@ -2,6 +2,9 @@
 // Placeholder watch data list
 let watches = [];
 
+// Utility: expose all watches (for worker.js use only)
+export const getAllWatches = () => watches;
+
 // GET all watches for user
 export const getWatches = (req, res) => {
     const userEmail = req.user.email;
@@ -35,7 +38,13 @@ export const createWatch = (req, res) => {
 // DELETE a watch
 export const deleteWatch = (req, res) => {
     const { id } = req.params;
-    const index = watches.findIndex((w) => w.id === id);
+    const userEmail = req.user?.email;
+
+    const index = watches.findIndex((w) => w.id === id && w.userEmail === userEmail);
+    if (index === -1) {
+        return res.status(404).json({ error: "Watch not found or unauthorised" });
+    }
+
     watches.splice(index, 1);
     res.json({ message: `Watch ${id} deleted` });
 };
