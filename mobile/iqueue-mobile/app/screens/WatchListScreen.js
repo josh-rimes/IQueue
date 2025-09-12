@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { View, Text, FlatList, ActivityIndicator, StyleSheet, Button } from "react-native";
 import Constants from "expo-constants";
 import * as Notifications from "expo-notifications";
+import * as SecureStore from "expo-secure-store";
 
 const BACKEND_URL = Constants.expoConfig.extra.BACKEND_URL;
 
@@ -14,7 +15,10 @@ export default function WatchListScreen() {
     
     const fetchWatches = async () => {
         try {
-            const response = await fetch(`${BACKEND_URL}/api/watches`);
+            const token = await SecureStore.getItemAsync("token");
+            const response = await fetch(`${BACKEND_URL}/api/watches`, {
+                headers: { Authorization: `Bearer ${token}` }
+            });
             const data = await response.json();
 
             data.forEach(async (watch) => {

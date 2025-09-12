@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { View, TextInput, Button, Text, StyleSheet, Alert } from "react-native";
 import Constants from "expo-constants";
+import * as SecureStore from "expo-secure-store";
 
 export default function AddWatchScreen({ navigation }) {
     const [eventUrl, setEventUrl] = useState("");
@@ -17,9 +18,11 @@ export default function AddWatchScreen({ navigation }) {
         const BACKEND_URL = Constants.expoConfig.extra.BACKEND_URL;
 
         try {
+            const token = await SecureStore.getItemAsync("token");
             const response = await fetch(`${BACKEND_URL}/api/watches`, {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
+                headers: { "Content-Type": "application/json",
+                            Authorization: `Bearer ${token}` },
                 body: JSON.stringify({
                     eventUrl,
                     thresholdType,
