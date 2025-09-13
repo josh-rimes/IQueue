@@ -90,7 +90,8 @@ export default function WatchListScreen() {
                         <Text>User: {item.userEmail}</Text>
                         <Text>Status: {item.status}</Text>
 
-                        <Button 
+                        <Button
+                            style={styles.button} 
                             title="Delete"
                             onPress={async () => {
                                 await fetch(`${BACKEND_URL}/api/watches/${item.id}`, { method: "DELETE"});
@@ -105,10 +106,7 @@ export default function WatchListScreen() {
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        padding: 16,
-    },
+    container: { flex: 1, padding: 16, },
     center: {
         flex: 1,
         justifyContent: "center",
@@ -121,11 +119,7 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         elevation: 2,
     },
-    url: {
-        fontWeight: "bold",
-        marginBottom: 4,
-    },
-    error: {
-        color: "red",
-    },
+    url: { fontWeight: "bold", marginBottom: 4, },
+    error: { color: "red", },
+    button: { padding: 1 },
 });

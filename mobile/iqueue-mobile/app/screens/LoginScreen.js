@@ -60,5 +60,5 @@ const styles = StyleSheet.create({
         padding: 10,
         borderRadius: 5,
     },
-    button: { padding: 1 }
+    button: { padding: 1 },
 });

@@ -45,7 +45,7 @@ export default function RegisterScreen({ navigation }) {
                 value={password}
                 onChangeText={setPassword}
             />
-            <Button title="Register" onPress={handleRegister} />
+            <Button style={styles.button} title="Register" onPress={handleRegister} />
         </View>
     );
 }
@@ -59,4 +59,5 @@ const styles = StyleSheet.create({
         padding: 10,
         borderRadius: 5,
     },
+    button: { padding: 1 },
 });

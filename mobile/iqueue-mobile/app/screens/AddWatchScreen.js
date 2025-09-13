@@ -84,7 +84,7 @@ export default function AddWatchScreen({ navigation }) {
                 keyboardType="email-address"
             />
 
-            <Button title="Create Watch" onPress={handleSubmit} />
+            <Button style={styles.button} title="Create Watch" onPress={handleSubmit} />
         </View>
     );
 }
@@ -104,4 +104,5 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         marginTop: 5,
     },
+    button: { padding: 1 },
 });
