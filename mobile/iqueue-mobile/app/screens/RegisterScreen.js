@@ -1,17 +1,16 @@
 import React, { useState } from "react";
 import { View, TextInput, Button, Alert, StyleSheet } from "react-native";
 import Constants from "expo-constants";
-import * as SecureStore from "expo-secure-store";
 
 const BACKEND_URL = Constants.expoConfig.extra.BACKEND_URL;
 
-export default function LoginScreen({ navigation }) {
+export default function RegisterScreen({ navigation }) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const handleLogin = async () => {
+    const handleRegister = async () => {
         try {
-            const response = await fetch(`${BACKEND_URL}/api/auth/login`, {
+            const response = await fetch(`${BACKEND_URL}/api/auth/register`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email, password }),
@@ -19,10 +18,10 @@ export default function LoginScreen({ navigation }) {
 
             const data = await response.json();
             if (response.ok) {
-                await SecureStore.setItemAsync("token", data.token);
-                navigation.replace("Home");
+                Alert.alert("Success", "Account created! Please log in.");
+                navigation.navigate("Login");
             } else {
-                Alert.alert("Error", data.error || "Login failed");
+                Alert.alert("Error", data.error || "Registration failed");
             }
         } catch (err) {
             Alert.alert("Error", "Could not connect to backend");
@@ -37,6 +36,7 @@ export default function LoginScreen({ navigation }) {
                 value={email}
                 onChangeText={setEmail}
                 autoCapitalize="none"
+                keyboardType="email-address"
             />
             <TextInput
                 style={styles.input}
@@ -45,14 +45,13 @@ export default function LoginScreen({ navigation }) {
                 value={password}
                 onChangeText={setPassword}
             />
-            <Button style={styles.button} title="Login" onPress={handleLogin} />
-            <Button style={styles.button} title="Go to Register" onPress={() => navigation.navigate("Register")} />            
+            <Button title="Register" onPress={handleRegister} />
         </View>
     );
 }
 
 const styles = StyleSheet.create({
-    container: { flex: 1, justifyContent: "centre", padding: 20 },
+    container: { flex: 1, justifyContent: "center", padding: 20 },
     input: {
         borderWidth: 1,
         borderColor: "#ccc",
@@ -60,5 +59,4 @@ const styles = StyleSheet.create({
         padding: 10,
         borderRadius: 5,
     },
-    button: { padding: 1 }
 });
