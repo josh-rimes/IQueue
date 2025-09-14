@@ -7,11 +7,10 @@ export default function AddWatchScreen({ navigation }) {
     const [eventUrl, setEventUrl] = useState("");
     const [thresholdType, setThresholdType] = useState("position");
     const [thresholdValue, setThresholdValue] = useState("");
-    const [userEmail, setUserEmail] = useState("");
 
     const handleSubmit = async () => {
-        if (!eventUrl || !userEmail) {
-            Alert.alert("Error", "Event URL and Email are required");
+        if (!eventUrl) {
+            Alert.alert("Error", "Event URL is required");
             return;
         }
 
@@ -27,7 +26,6 @@ export default function AddWatchScreen({ navigation }) {
                     eventUrl,
                     thresholdType,
                     thresholdValue: Number(thresholdValue),
-                    userEmail,
                 }),
             });
 
@@ -38,7 +36,6 @@ export default function AddWatchScreen({ navigation }) {
                 setEventUrl("");
                 setThresholdType("");
                 setThresholdValue("");
-                setUserEmail("");
 
                 navigation.navigate("WatchList");
             } else {
@@ -73,15 +70,6 @@ export default function AddWatchScreen({ navigation }) {
                 value={thresholdValue}
                 onChangeText={setThresholdValue}
                 keyboardType="numeric"
-            />
-
-            <Text style={styles.label}>Your Email:</Text>
-            <TextInput
-                style={styles.input}
-                value={userEmail}
-                onChangeText={setUserEmail}
-                placeholder="you@example.com"
-                keyboardType="email-address"
             />
 
             <Button style={styles.button} title="Create Watch" onPress={handleSubmit} />
