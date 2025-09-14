@@ -13,7 +13,7 @@ app.use(express.json());
 
 // Routes
 app.use("/api/watches", watchRoutes);
-app.use("api/auth", authRoutes);
+app.use("/api/auth", authRoutes);
 
 app.get("/", (req, res) => {
     res.send("IQueue backend is running!");
